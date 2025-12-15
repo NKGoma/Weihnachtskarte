@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Weihnachtskarte</title>
+
+<style>
+:root {
+  --bg-top: #0e1b24;
+  --bg-bottom: #223b47;
+  --text-main: #f5f7f8;
+  --text-soft: rgba(245,247,248,0.75);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+  color: var(--text-main);
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", Arial, sans-serif;
+  overflow: hidden;
+}
+
+/* --- Snow --- */
+.snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.snowflake {
+  position: absolute;
+  top: -10px;
+  opacity: 0.6;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+
+/* --- Layout --- */
+.card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 48px 24px 56px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Text --- */
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin-top: 12px;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+.signature {
+  margin-top: 22px;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+/* --- Dog Image --- */
+.hero {
+  margin: 56px 0 72px;
+  animation: breathe 6s ease-in-out infinite;
+}
+
+.hero img {
+  width: min(360px, 80vw);
+  height: auto;
+  border-radius: 22px;
+  box-shadow: 0 30px 50px rgba(0,0,0,0.45);
+  display: block;
+}
+
+/* subtle life */
+@keyframes breathe {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@media (max-height: 720px) {
+  .hero { margin: 36px 0 48px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="snow" id="snow"></div>
+
+<div class="card">
+  <div>
+    <h1>Gute Besserung, Ursula</h1>
+    <h2>& Frohe Weihnachten</h2>
+    <div class="signature">— deine Copilot Crew</div>
+  </div>
+
+  <!-- 🐕 YOUR LOCAL IMAGE -->
+  <div class="hero">
+    <img src="./dog.jpg" alt="Dog in the snow">
+  </div>
+</div>
+
+<script>
+// ❄️ Snow (calm, premium)
+const snow = document.getElementById("snow");
+const flakes = 70;
+
+for (let i = 0; i < flakes; i++) {
+  const f = document.createElement("div");
+  f.className = "snowflake";
+  f.textContent = "❄";
+  f.style.left = Math.random() * 100 + "vw";
+  f.style.fontSize = Math.random() * 10 + 10 + "px";
+  f.style.opacity = Math.random() * 0.4 + 0.3;
+  f.style.animationDuration = Math.random() * 10 + 10 + "s";
+  f.style.animationDelay = Math.random() * 10 + "s";
+  snow.appendChild(f);
+}
+</script>
+
+</body>
+</html>
